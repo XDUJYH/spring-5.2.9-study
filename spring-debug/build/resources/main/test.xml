@@ -17,12 +17,12 @@
 <!--        <property name="name" value="lisi"></property>-->
 <!--    </bean>-->
 
-<!--    <bean id="a" class="com.mashibing.test.A">-->
-<!--        <property name="b" ref="b"></property>-->
-<!--    </bean>-->
-<!--    <bean id="b" class="com.mashibing.test.B">-->
-<!--        <property name="a" ref="a"></property>-->
-<!--    </bean>-->
+    <bean id="a" class="com.mashibing.test.A">
+        <property name="b" ref="b"></property>
+    </bean>
+    <bean id="b" class="com.mashibing.test.B">
+        <property name="a" ref="a"></property>
+    </bean>
 
 <!--        <bean id="logger" class="com.mashibing.test.Logger" />-->
 
