@@ -1,1 +1,1 @@
-this is a spring framework with annotation, just for study
+for study spring
