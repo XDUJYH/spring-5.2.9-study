@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 这样调用的是无参构造方法 -->
+    <!--	<bean id="student1" class="com.jyh.demo.Student"></bean>-->
+    <!-- 这样调用的是无参构造方法和set方法 -->
+    <!--	<bean id="student1" class="com.jyh.demo.Student">-->
+    <!--		<property name="name" value="jyh"></property>-->
+    <!--	</bean>-->
+    <!-- 这样调用的是无参构造方法和有参构造方法 -->
+    <bean id="student1" class="com.jyh.demo.Student">
+        <constructor-arg name="name" value="jyh"></constructor-arg>
+    </bean>
+</beans>

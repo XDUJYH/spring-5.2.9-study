@@ -339,7 +339,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * a custom {@link ConfigurableEnvironment} implementation.
 	 */
 	protected ConfigurableEnvironment createEnvironment() {
-		return new StandardEnvironment();
+		return new StandardEnvironment();//注意这里调用了无参构造方法，如果想debug，就要点进去这个类的父类，在父类的构造方法上打断点，就是跳到父类那，这样才能看明白过程（因为子类构造前父类一定会创建）
 	}
 
 	/**
@@ -553,7 +553,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 	@Override
 	public void refresh() throws BeansException, IllegalStateException {
-		synchronized (this.startupShutdownMonitor) {
+		synchronized (this.startupShutdownMonitor) {//加了个锁，只是一个同步监视器而已
 			// Prepare this context for refreshing.
 			/**
 			 * 前戏，做容器刷新前的准备工作
@@ -663,16 +663,16 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Initialize any placeholder property sources in the context environment.
-		// 留给子类覆盖，初始化属性资源
+		// 留给子类覆盖，初始化属性资源，空的，用来进行拓展用
 		initPropertySources();
 
 		// Validate that all properties marked as required are resolvable:
 		// see ConfigurablePropertyResolver#setRequiredProperties
 		// 创建并获取环境对象，验证需要的属性文件是否都已经放入环境中
-		getEnvironment().validateRequiredProperties();
+		getEnvironment().validateRequiredProperties();//validateRequiredProperties是用来验证必要的参数是否都有，没有会抛出异常
 
 		// Store pre-refresh ApplicationListeners...
-		// 判断刷新前的应用程序监听器集合是否为空，如果为空，则将监听器添加到此集合中
+		// 判断刷新前的应用程序监听器集合是否为空，如果为空，则将监听器添加到此集合中（springboot中会出现this.applicationListeners非空的情况）
 		if (this.earlyApplicationListeners == null) {
 			this.earlyApplicationListeners = new LinkedHashSet<>(this.applicationListeners);
 		}
@@ -706,7 +706,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 */
 	protected ConfigurableListableBeanFactory obtainFreshBeanFactory() {
 		// 初始化BeanFactory,并进行XML文件读取，并将得到的BeanFactory记录在当前实体的属性中
-		refreshBeanFactory();
+		refreshBeanFactory();//每次调用这个必回创建一个新的bean工厂
 		// 返回当前实体的beanFactory属性
 		return getBeanFactory();
 	}
@@ -1003,7 +1003,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.freezeConfiguration();
 
 		// Instantiate all remaining (non-lazy-init) singletons.
-		// 实例化剩下的单例对象
+		// 实例化剩下的单例对象(核心点！！！！)
 		beanFactory.preInstantiateSingletons();
 	}
 
