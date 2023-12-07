@@ -125,7 +125,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// the new (child) delegate with a reference to the parent for fallback purposes,
 		// then ultimately reset this.delegate back to its original (parent) reference.
 		// this behavior emulates a stack of delegates without actually necessitating one.
-		BeanDefinitionParserDelegate parent = this.delegate;
+		BeanDefinitionParserDelegate parent = this.delegate;//delegate委派、委托，也就是解析器
 		this.delegate = createDelegate(getReaderContext(), root, parent);
 
 		if (this.delegate.isDefaultNamespace(root)) {
@@ -145,7 +145,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 			}
 		}
 
-		preProcessXml(root);
+		preProcessXml(root);//空的，为了拓展实现
 		parseBeanDefinitions(root, this.delegate);
 		postProcessXml(root);
 
@@ -167,12 +167,12 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 */
 	protected void parseBeanDefinitions(Element root, BeanDefinitionParserDelegate delegate) {
 		if (delegate.isDefaultNamespace(root)) {
-			NodeList nl = root.getChildNodes();
+			NodeList nl = root.getChildNodes();//获取第一个子节点
 			for (int i = 0; i < nl.getLength(); i++) {
 				Node node = nl.item(i);
-				if (node instanceof Element) {
+ 				if (node instanceof Element) {//别看Element子类，太多了
 					Element ele = (Element) node;
-					if (delegate.isDefaultNamespace(ele)) {
+					if (delegate.isDefaultNamespace(ele)) {//将标签分为默认的还是自定义的，走不同的处理途径
 						parseDefaultElement(ele, delegate);
 					}
 					else {
@@ -320,9 +320,9 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// beanDefinitionHolder是beanDefinition对象的封装类，封装了BeanDefinition，bean的名字和别名，用它来完成向IOC容器的注册
 		// 得到这个beanDefinitionHolder就意味着beandefinition是通过BeanDefinitionParserDelegate对xml元素的信息按照spring的bean规则进行
 		// 解析得到的
-		BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
+		BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);//这个方法比较关键
 		if (bdHolder != null) {
-			bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);
+			bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);//这方法不是很重要
 			try {
 				// Register the final decorated instance.
 				// 向ioc容器注册解析得到的beandefinition的地方

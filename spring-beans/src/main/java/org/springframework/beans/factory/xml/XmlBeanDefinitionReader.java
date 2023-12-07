@@ -337,7 +337,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			if (encodedResource.getEncoding() != null) {
 				inputSource.setEncoding(encodedResource.getEncoding());
 			}
-			// 逻辑处理的核心步骤
+			// 逻辑处理的核心步骤，看到do开头的方法，一般就是实际处理的方法，很重要
 			return doLoadBeanDefinitions(inputSource, encodedResource.getResource());
 		}
 		catch (IOException ex) {

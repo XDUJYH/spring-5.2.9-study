@@ -435,7 +435,7 @@ public class BeanDefinitionParserDelegate {
 		}
 
 		if (containingBean == null) {
-			checkNameUniqueness(beanName, aliases, ele);
+			checkNameUniqueness(beanName, aliases, ele);//判断名字是否唯一的
 		}
 
 		// 对bean元素的详细解析
@@ -965,7 +965,7 @@ public class BeanDefinitionParserDelegate {
 
 		// Should only have one child element: ref, value, list, etc.
 		// 一个属性只能对应一种类型：ref、value、list等
-		NodeList nl = ele.getChildNodes();
+		NodeList nl = ele.getChildNodes();//考虑集合元素的赋值，所以会获取子元素
 		Element subElement = null;
 		for (int i = 0; i < nl.getLength(); i++) {
 			Node node = nl.item(i);
